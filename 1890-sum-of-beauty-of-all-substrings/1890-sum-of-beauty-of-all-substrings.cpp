@@ -10,7 +10,7 @@ public:
             if(min_f > cnt[idx] - 1){
                  min_f = cnt[idx];
             }
-            else if (min_f >= cnt[idx] - 1) {
+            else if (min_f == cnt[idx] - 1) {
                 min_f = cnt[idx];
                 for (int k = 0; k < 26; ++k)
                     min_f = min(min_f, cnt[k] == 0 ? INT_MAX : cnt[k]);
