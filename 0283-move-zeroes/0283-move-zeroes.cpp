@@ -1,14 +1,19 @@
-class Solution {
-public:
-    void moveZeroes(vector<int>& nums) {
-        int i = 0 , n = nums.size();
-        for(int j=0;j<n;j++){
-           if(nums[j]!=0){
-               nums[i++] = nums[j];
-           }
+class Solution
+{
+    public:
+        void moveZeroes(vector<int> &nums)
+        {
+            int snowBallSize = 0;
+            for (int i = 0; i < nums.size(); i++)
+            {
+                if (nums[i] == 0)
+                {
+                    snowBallSize++;
+                }
+                else if (snowBallSize > 0)
+                {
+                    swap(nums[i], nums[i - snowBallSize]);
+                }
+            }
         }
-        while(i<n){
-            nums[i++] = 0;
-        }
-    }
 };
