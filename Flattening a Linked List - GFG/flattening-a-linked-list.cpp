@@ -112,7 +112,7 @@ struct Node{
 /*  Function which returns the  root of 
     the flattened linked list. */
     
-void merge(Node*l1, Node*l2){
+Node* merge(Node*l1, Node*l2){
     Node * head = l1 , *temp = l1;
     l1 = l1->bottom;
     while(l1!= NULL && l2!=NULL){
@@ -132,16 +132,17 @@ void merge(Node*l1, Node*l2){
     if(l2!=NULL){
         temp->bottom = l2;
     }
-    
+    return head;
 }
-void solve(Node *root){
-    if(root->next==NULL)return ;
-    solve(root->next);
-    merge(root,root->next);
+Node * solve(Node *root){
+    if(root==NULL || root->next==NULL)return root;
+    root->next = solve(root->next);
+    root = merge(root,root->next);
+    return root;
 }
 Node *flatten(Node *root)
 {  if(root->next==NULL)return root;
-   solve(root);
-   return root;
+   return solve(root);
+   //return root;
 }
 
