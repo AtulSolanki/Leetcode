@@ -1,34 +1,32 @@
 class Solution {
 public:
-bool same(int a,int b){
-    if((a>0 && b>0) || (a<0 && b<0) || (a<0 && b>0))return true;
-    return false;
-}
-    vector<int> asteroidCollision(vector<int>& A) {
-         vector<int> ans;
-         stack<int>st;
-         int n = A.size();
-         for(int i=0;i<n;i++){
-              if(st.empty() || same(st.top(),A[i])){
-                  st.push(A[i]);
-              }
-              else{
-                  while(!st.empty() && st.top()>0 &&st.top()<abs(A[i])){
-                      st.pop();
-                  }
-                  if(st.empty() || (st.top()<0 && A[i]<0)){
-                      st.push(A[i]);
-                  }
-                  if(st.top()==abs(A[i])){
-                      st.pop();
-                  }
-              }
-         }
-         while(!st.empty()){
-             ans.push_back(st.top());
-             st.pop();
-         }
-         reverse(ans.begin(),ans.end());
-         return ans;
+    vector<int> asteroidCollision(vector<int>& ast) {
+        int n = ast.size();
+        stack<int> s;
+        for(int i = 0; i < n; i++) {
+            if(ast[i] > 0 || s.empty()) {
+                s.push(ast[i]);
+            }
+            else {
+                while(!s.empty() and s.top() > 0 and s.top() < abs(ast[i])) {
+                    s.pop();
+                }
+                if(!s.empty() and s.top() == abs(ast[i])) {
+                    s.pop();
+                }
+                else {
+                    if(s.empty() || s.top() < 0) {
+                        s.push(ast[i]);
+                    }
+                }
+            }
+        }
+		
+        vector<int> res(s.size());
+        for(int i = (int)s.size() - 1; i >= 0; i--) {
+            res[i] = s.top();
+            s.pop();
+        }
+        return res;
     }
 };
