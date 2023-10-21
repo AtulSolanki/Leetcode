@@ -11,7 +11,14 @@ public:
     int uniquePathsWithObstacles(vector<vector<int>>& v) {
            int n = v.size();
            int m = v[0].size();
-           vector<vector<int>>dp(n,vector<int>(m,-1));
-            return solve(v,0,0,dp);
+           vector<vector<long long>>dp(n+1,vector<long long >(m+1,0));
+           dp[n-1][m] = 1;
+           for(int i=n-1;i>=0;i--){
+               for(int j=m-1;j>=0;j--){
+                   if(!v[i][j]) dp[i][j] = dp[i+1][j] + dp[i][j+1];
+               }
+           }
+            //return solve(v,0,0,dp);
+            return dp[0][0];
     }
 };
